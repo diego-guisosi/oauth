@@ -1,67 +1,46 @@
-CONNECT 'jdbc:derby:oauth;create=true';
-
-create table oauth_client_details (
-  client_id VARCHAR(255) PRIMARY KEY,
-  resource_ids VARCHAR(255),
-  client_secret VARCHAR(255),
-  scope VARCHAR(255),
-  authorized_grant_types VARCHAR(255),
-  web_server_redirect_uri VARCHAR(255),
-  authorities VARCHAR(255),
-  access_token_validity INTEGER,
-  refresh_token_validity INTEGER,
-  additional_information VARCHAR(4096),
-  autoapprove VARCHAR(255)
-);
+/*
+* Table oauth_access_token
+*/
+CREATE TABLE `oauth_access_token` (
+`token_id` varchar(256) DEFAULT NULL,
+`token` blob,
+`authentication_id` varchar(256) DEFAULT NULL,
+`user_name` varchar(256) DEFAULT NULL,
+`client_id` varchar(256) DEFAULT NULL,
+`authentication` blob,
+`refresh_token` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
  
-create table oauth_client_token (
-  token_id VARCHAR(255),
-  token LONG VARCHAR FOR BIT DATA,
-  authentication_id VARCHAR(255) PRIMARY KEY,
-  user_name VARCHAR(255),
-  client_id VARCHAR(255)
-);
+/*
+* Table oauth_client_details
+*/
+CREATE TABLE `oauth_client_details` (
+`client_id` varchar(256) NOT NULL,
+`resource_ids` varchar(256) DEFAULT NULL,
+`client_secret` varchar(256) DEFAULT NULL,
+`scope` varchar(256) DEFAULT NULL,
+`authorized_grant_types` varchar(256) DEFAULT NULL,
+`web_server_redirect_uri` varchar(256) DEFAULT NULL,
+`authorities` varchar(256) DEFAULT NULL,
+`access_token_validity` int(11) DEFAULT NULL,
+`refresh_token_validity` int(11) DEFAULT NULL,
+`additional_information` varchar(4096) DEFAULT NULL,
+PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
  
-create table oauth_access_token (
-  token_id VARCHAR(255),
-  token LONG VARCHAR FOR BIT DATA,
-  authentication_id VARCHAR(255) PRIMARY KEY,
-  user_name VARCHAR(255),
-  client_id VARCHAR(255),
-  authentication LONG VARCHAR FOR BIT DATA,
-  refresh_token VARCHAR(255)
-);
+/*
+* Table oauth_code
+*/
+CREATE TABLE `oauth_code` (
+`code` varchar(256) DEFAULT NULL,
+`authentication` blob
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
  
-create table oauth_refresh_token (
-  token_id VARCHAR(255),
-  token LONG VARCHAR FOR BIT DATA,
-  authentication LONG VARCHAR FOR BIT DATA
-);
- 
-create table oauth_code (
-  code VARCHAR(255), 
-  authentication LONG VARCHAR FOR BIT DATA
-);
- 
-create table oauth_approvals (
-    userId VARCHAR(255),
-    clientId VARCHAR(255),
-    scope VARCHAR(255),
-    status VARCHAR(10),
-    expiresAt TIMESTAMP,
-    lastModifiedAt TIMESTAMP
-);
- 
-create table ClientDetails (
-  appId VARCHAR(255) PRIMARY KEY,
-  resourceIds VARCHAR(255),
-  appSecret VARCHAR(255),
-  scope VARCHAR(255),
-  grantTypes VARCHAR(255),
-  redirectUrl VARCHAR(255),
-  authorities VARCHAR(255),
-  access_token_validity INTEGER,
-  refresh_token_validity INTEGER,
-  additionalInformation VARCHAR(4096),
-  autoApproveScopes VARCHAR(255)
-);
+/*
+* Table oauth_refresh_token
+*/
+CREATE TABLE `oauth_refresh_token` (
+`token_id` varchar(256) DEFAULT NULL,
+`token` blob,
+`authentication` blob
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
