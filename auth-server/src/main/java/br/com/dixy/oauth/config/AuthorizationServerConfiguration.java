@@ -46,7 +46,15 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.scopes("read", "write", "trust")
 				.resourceIds("oauth2-resource")
 				.accessTokenValiditySeconds(180)
-				.redirectUris("/oauth/accept_code");
+				.redirectUris("/oauth/accept_code")
+				.and()
+				.withClient("client-credential")
+				.authorizedGrantTypes("client_credentials")
+				.authorities("ROLE_CLIENT")
+				.scopes("read")
+				.resourceIds("oauth2-resource")
+				.accessTokenValiditySeconds(180) // it should be set too a much longer expiration time. Default is 44000
+				.secret("client-password");
 
 	}
 
